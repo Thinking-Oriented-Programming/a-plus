@@ -2,21 +2,15 @@
   "author": "王青",
   "name": "a-plus",
   "version": "0.0.2",
-  "homepage": "http://my.ss.sysu.edu.cn/wiki/display/LBF/Home",
   "licenses": {
     "type": "MIT"
   },
-  "bugs": "http://code.at-plus.cn/wezone/wz-web/issues",
+  "bugs": "https://github.com/Thinking-Oriented-Programming/a-plus/issues",
   "repository": {
     "type": "git",
-    "url": "git@222.200.181.218:rc-front/a-plus.git"
+    "url": "https://github.com/Thinking-Oriented-Programming/a-plus.git"
   },
-  "dependencies": {
-    "cookie-parser": "^1.3.3",
-    "express": "~3.0",
-    "jade": "^1.7.0",
-    "socket.io": "^1.1.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-bump": "0.0.6",
