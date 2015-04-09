@@ -15,7 +15,7 @@ Package.onUse(function(api) {
   // Jquery as a weak dependency, only if it's present, should load before a-plus
   // api.use('aramk:requirejs');
   api.use('jquery', 'client', {weak: true});
-  api.use('ericwangqing:simple-requirejs');
+  api.use('ericwangqing:simple-requirejs@0.0.3');
   api.addFiles([
     'util.js',
     'state/abstract-state.js',

@@ -55,6 +55,9 @@
         var this$ = this;
         this.state.observe(function(state){
           this$.widgetContainer.attr('class', state.replace(/\./g, ' '));
+          if (typeof this$.appearanceStateChangedCallback === 'function') {
+            this$.appearanceStateChangedCallback();
+          }
         });
       };
       prototype.reactiveToAppState = function(){

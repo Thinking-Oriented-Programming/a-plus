@@ -2,9 +2,9 @@ Package.describe({
   name: 'ericwangqing:a-plus',
   version: '0.0.1',
   // Brief, one-line summary of the package.
-  summary: '',
+  summary: 'an alternative solution of router based app, state-machine based Single Page Application',
   // URL to the Git repository containing the source code for this package.
-  git: '',
+  git: 'https://github.com/Thinking-Oriented-Programming/a-plus.git',
   // By default, Meteor will default to using README.md for documentation.
   // To avoid submitting documentation, set this field to null.
   documentation: 'README.md'
@@ -15,7 +15,7 @@ Package.onUse(function(api) {
   // Jquery as a weak dependency, only if it's present, should load before a-plus
   // api.use('aramk:requirejs');
   api.use('jquery', 'client', {weak: true});
-  api.use('ericwangqing:simple-requirejs');
+  api.use('ericwangqing:simple-requirejs@0.0.3');
   api.addFiles([
     'util.js',
     'state/abstract-state.js',

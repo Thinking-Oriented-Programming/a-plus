@@ -33,7 +33,9 @@ define 'Abstract-widget', ['state', 'util'], (State, util)-> class Abstract-widg
     @change-widget-container-class-when-state-changed!
 
   change-widget-container-class-when-state-changed: !->
-    @state.observe (state)!~> @widget-container.attr 'class', (state.replace /\./g, ' ')
+    @state.observe (state)!~> 
+      @widget-container.attr 'class', (state.replace /\./g, ' ')
+      @appearance-state-changed-callback?!
 
   reactive-to-app-state: !-> if State.app-state # 渐进式开发，不要求一开始就定义app-state-machine
     @parse-widget-states-app-states-map!
