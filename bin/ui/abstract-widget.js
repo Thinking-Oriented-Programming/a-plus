@@ -50,6 +50,7 @@
         this.createDom();
         this.widgetContainer.append(this.dom);
         this.changeWidgetContainerClassWhenStateChanged();
+        this.hideDomWhenStateChangeToHidden();
       };
       prototype.changeWidgetContainerClassWhenStateChanged = function(){
         var this$ = this;
@@ -73,15 +74,29 @@
                 return;
               }
             }
-            if (this$.name === 'create-assignment') {
-              console.log(this$.isIncludeByTemplate ? 'normal' : 'hidden');
-            }
             this$.state(this$.isIncludeByTemplate ? 'normal' : 'hidden');
           });
           if (s = State.appState()) {
             State.appState(s);
           }
         }
+      };
+      prototype.hideDomWhenStateChangeToHidden = function(){
+        var this$ = this;
+        this.state.observe(function(state){
+          if (state === 'hidden') {
+            this$.hiddenDomInOneSecond();
+          } else {
+            $(this$.dom).show();
+          }
+        });
+      };
+      prototype.hiddenDomInOneSecond = function(){
+        var self;
+        self = this;
+        setTimeout(function(){
+          $(self.dom).hide();
+        }, 1000);
       };
       prototype.parseWidgetStatesAppStatesMap = function(){
         this.runtime = root.bPlusAppEngine.appSpec.runtime;

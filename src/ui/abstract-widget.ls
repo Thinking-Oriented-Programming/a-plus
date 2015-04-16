@@ -31,6 +31,7 @@ define 'Abstract-widget', ['state', 'util'], (State, util)-> class Abstract-widg
     @create-dom!
     @widget-container.append @dom
     @change-widget-container-class-when-state-changed!
+    @hide-dom-when-state-change-to-hidden!
 
   change-widget-container-class-when-state-changed: !->
     @state.observe (state)!~> 
@@ -42,9 +43,15 @@ define 'Abstract-widget', ['state', 'util'], (State, util)-> class Abstract-widg
     State.app-state.observe (app-state)!~> 
       for own widget-state, app-states of @widget-states-app-states-map || {} # widget在不同的app state上呈现不同。widget-states-app-states-map定义了这样的映射关系。
         (@state widget-state ; return) if app-state in app-states
-      console.log(if @is-include-by-template then 'normal' else 'hidden') if @name is 'create-assignment'
-      @state if @is-include-by-template then 'normal' else 'hidden'
+      @state if @is-include-by-template then 'normal' else 'hidden' # 通过template include使用的widget，其状态由template widget控制。
     State.app-state s if s = State.app-state! # 触发第一次应用mappling，否则app-state的初始值，不会关联改变widget的state
+
+  hide-dom-when-state-change-to-hidden: !->
+    @state.observe (state)!~> if state is 'hidden' then @hidden-dom-in-one-second! else $ @dom .show!
+
+  hidden-dom-in-one-second: !-> 
+    self = @
+    set-timeout (!-> $ self.dom .hide!), 1000ms
 
   parse-widget-states-app-states-map: !-> # TODO: 需要进一步完善，现在只能够解析最简单的情况。
     @runtime = root.b-plus-app-engine.app-spec.runtime # TODO: 改进此处的全局依赖
