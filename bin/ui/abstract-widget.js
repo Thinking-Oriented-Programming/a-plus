@@ -95,7 +95,7 @@
         var self;
         self = this;
         setTimeout(function(){
-          if (self.state() !== 'hidden') {
+          if (self.state() === 'hidden') {
             $(self.dom).hide();
           }
         }, 1000);
