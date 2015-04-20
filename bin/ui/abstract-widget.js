@@ -95,7 +95,9 @@
         var self;
         self = this;
         setTimeout(function(){
-          $(self.dom).hide();
+          if (self.state() !== 'hidden') {
+            $(self.dom).hide();
+          }
         }, 1000);
       };
       prototype.parseWidgetStatesAppStatesMap = function(){

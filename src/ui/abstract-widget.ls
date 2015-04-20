@@ -51,7 +51,7 @@ define 'Abstract-widget', ['state', 'util'], (State, util)-> class Abstract-widg
 
   hidden-dom-in-one-second: !-> 
     self = @
-    set-timeout (!-> $ self.dom .hide!), 1000ms
+    set-timeout (!-> $ self.dom .hide! if self.state! isnt 'hidden'), 1000ms
 
   parse-widget-states-app-states-map: !-> # TODO: 需要进一步完善，现在只能够解析最简单的情况。
     @runtime = root.b-plus-app-engine.app-spec.runtime # TODO: 改进此处的全局依赖
