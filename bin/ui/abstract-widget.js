@@ -62,24 +62,25 @@
         });
       };
       prototype.reactiveToAppState = function(){
-        var s, this$ = this;
+        var this$ = this;
         if (State.appState) {
           this.parseWidgetStatesAppStatesMap();
           State.appState.observe(function(appState){
-            var widgetState, ref$, appStates, own$ = {}.hasOwnProperty;
-            for (widgetState in ref$ = this$.widgetStatesAppStatesMap || {}) if (own$.call(ref$, widgetState)) {
-              appStates = ref$[widgetState];
-              if (in$(appState, appStates)) {
-                this$.state(widgetState);
-                return;
-              }
-            }
-            this$.state(this$.isIncludeByTemplate ? 'normal' : 'hidden');
+            this$.setWidgetAppearanceNormalOrHiddenAccordingToAppState(appState);
           });
-          if (s = State.appState()) {
-            State.appState(s);
+          this.setWidgetAppearanceNormalOrHiddenAccordingToAppState(State.appState());
+        }
+      };
+      prototype.setWidgetAppearanceNormalOrHiddenAccordingToAppState = function(appState){
+        var widgetState, ref$, appStates, own$ = {}.hasOwnProperty;
+        for (widgetState in ref$ = this.widgetStatesAppStatesMap || {}) if (own$.call(ref$, widgetState)) {
+          appStates = ref$[widgetState];
+          if (in$(appState, appStates)) {
+            this.state(widgetState);
+            return;
           }
         }
+        this.state(this.isIncludeByTemplate ? 'normal' : 'hidden');
       };
       prototype.hideDomWhenStateChangeToHidden = function(){
         var this$ = this;

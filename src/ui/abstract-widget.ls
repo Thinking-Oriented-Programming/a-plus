@@ -40,11 +40,13 @@ define 'Abstract-widget', ['state', 'util'], (State, util)-> class Abstract-widg
 
   reactive-to-app-state: !-> if State.app-state # 渐进式开发，不要求一开始就定义app-state-machine
     @parse-widget-states-app-states-map!
-    State.app-state.observe (app-state)!~> 
-      for own widget-state, app-states of @widget-states-app-states-map || {} # widget在不同的app state上呈现不同。widget-states-app-states-map定义了这样的映射关系。
-        (@state widget-state ; return) if app-state in app-states
-      @state if @is-include-by-template then 'normal' else 'hidden' # 通过template include使用的widget，其状态由template widget控制。
-    State.app-state s if s = State.app-state! # 触发第一次应用mappling，否则app-state的初始值，不会关联改变widget的state
+    State.app-state.observe (app-state)!~> @set-widget-appearance-normal-or-hidden-according-to-app-state app-state
+    @set-widget-appearance-normal-or-hidden-according-to-app-state State.app-state! # 触发第一次应用mappling，否则app-state的初始值，不会关联改变widget的state
+
+  set-widget-appearance-normal-or-hidden-according-to-app-state: (app-state)!->
+    for own widget-state, app-states of @widget-states-app-states-map || {} # widget在不同的app state上呈现不同。widget-states-app-states-map定义了这样的映射关系。
+      (@state widget-state ; return) if app-state in app-states
+    @state if @is-include-by-template then 'normal' else 'hidden' # 通过template include使用的widget，其状态由template widget控制。
 
   hide-dom-when-state-change-to-hidden: !->
     @state.observe (state)!~> if state is 'hidden' then @hidden-dom-in-one-second! else $ @dom .show!
