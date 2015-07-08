@@ -10,7 +10,7 @@ define 'state-machine', ['state', 'transition'], (state, Transition)-> class Sta
   @enable-back-navigation = !->
     is-onpopstate-caused-change = null 
     state.app-state.observe (current-page)!->
-      history.push-state page: current-page if not is-onpopstate-caused-change
+      history.push-state page: current-page, '' if not is-onpopstate-caused-change
       is-onpopstate-caused-change := false
 
     window.onpopstate = (event)!-> if event.state?
