@@ -14,7 +14,7 @@
           if (!isOnpopstateCausedChange) {
             history.pushState({
               page: currentPage
-            });
+            }, '');
           }
           isOnpopstateCausedChange = false;
         });
